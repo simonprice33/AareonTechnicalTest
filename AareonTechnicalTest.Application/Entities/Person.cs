@@ -12,6 +12,10 @@ namespace AareonTechnicalTest.Application.Entities
             IsAdmin = isAdmin;
         }
 
+        public Person()
+        {
+        }
+
         /// <summary>
         /// Gets Id
         /// </summary>

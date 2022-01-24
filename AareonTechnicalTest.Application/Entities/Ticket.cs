@@ -15,6 +15,10 @@ namespace AareonTechnicalTest.Application.Entities
             PersonId = Person.Id;
         }
 
+        public Ticket()
+        {
+        }
+
         /// <summary>
         /// Gets Id
         /// </summary>

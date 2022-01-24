@@ -23,11 +23,6 @@ namespace AareonTechnicalTest.Application.Commands
         public DbSet<Ticket> Tickets { get; set; }
 
         /// <summary>
-        /// Save changes async with explicit options.
-        /// </summary>
-        Task<int> SaveChangesAsync(SaveOptions options, CancellationToken cancellationToken = default);
-
-        /// <summary>
         /// Save changes async with default options.
         /// </summary>
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
