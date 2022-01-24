@@ -1,16 +1,36 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AareonTechnicalTest.Application.Entities
 {
     public class Person
     {
+        public Person(string forename, string surname, bool isAdmin)
+        {
+            Forename = !string.IsNullOrWhiteSpace(forename) ? forename : throw new ArgumentNullException(nameof(forename));
+            Surname = !string.IsNullOrWhiteSpace(surname) ? surname : throw new ArgumentNullException(nameof(surname));
+            IsAdmin = isAdmin;
+        }
+
+        /// <summary>
+        /// Gets Id
+        /// </summary>
         [Key]
         public int Id { get; }
 
-        public string Forename { get; set; }
+        /// <summary>
+        /// Gets Forename
+        /// </summary>
+        public string Forename { get; private set; }
 
-        public string Surname { get; set; }
+        /// <summary>
+        /// gets Surname
+        /// </summary>
+        public string Surname { get; private set; }
 
-        public bool IsAdmin { get; set; }
+        /// <summary>
+        /// Gets Is Admin
+        /// </summary>
+        public bool IsAdmin { get; private set; }
     }
 }
