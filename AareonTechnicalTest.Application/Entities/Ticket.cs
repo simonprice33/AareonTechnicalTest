@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AareonTechnicalTest.Models
+namespace AareonTechnicalTest.Application.Entities
 {
     public class Ticket
     {
