@@ -7,7 +7,6 @@ using AareonTechnicalTest.Application.Commands;
 using AareonTechnicalTest.Application.Entities;
 using AareonTechnicalTest.Application.Queries;
 using AareonTechnicalTest.Data.Data;
-using AareonTechnicalTest.Shared.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,7 +19,6 @@ namespace AareonTechnicalTest.Data.Config
         {
             services.AddScoped(BuildUpdateableDbContext);
             services.AddScoped(BuildReadOnlyDbContext);
-            services.AddScoped<IDbTransactionHandler, DbTransactionHandler>();
 
             return services;
         }
