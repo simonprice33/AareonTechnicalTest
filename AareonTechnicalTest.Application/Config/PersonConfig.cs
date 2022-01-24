@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AareonTechnicalTest.Application.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace AareonTechnicalTest.Models
+namespace AareonTechnicalTest.Application.Config
 {
     public static class PersonConfig
     {

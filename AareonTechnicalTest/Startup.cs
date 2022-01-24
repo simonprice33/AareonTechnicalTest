@@ -1,3 +1,6 @@
+using AareonTechnicalTest.Data;
+using AareonTechnicalTest.Data.Config;
+using AareonTechnicalTest.Data.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,8 +23,9 @@ namespace AareonTechnicalTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
+            services.AddInfrastructure();
+
             services.AddDbContext<ApplicationContext>(c => c.UseSqlite());
             services.AddSwaggerGen(c =>
             {
