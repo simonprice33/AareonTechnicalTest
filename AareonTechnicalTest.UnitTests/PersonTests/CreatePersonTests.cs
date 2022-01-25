@@ -17,8 +17,7 @@ namespace AareonTechnicalTest.UnitTests.PersonTests
     {
         private readonly ApplicationContext _databaseContext;
 
-        private readonly CreatePerson _sut
-            ;
+        private readonly CreatePerson _sut;
 
         public CreatePersonTests()
         {
