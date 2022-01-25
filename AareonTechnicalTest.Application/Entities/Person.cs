@@ -36,5 +36,62 @@ namespace AareonTechnicalTest.Application.Entities
         /// Gets Is Admin
         /// </summary>
         public bool IsAdmin { get; private set; }
+
+        /// <summary>
+        /// Update Forename
+        /// </summary>
+        /// <param name="forename"></param>
+        public void UpdateForename(string forename)
+        {
+            Forename = forename;
+        }
+
+        /// <summary>
+        /// Updates Surname
+        /// </summary>
+        /// <param name="surname"></param>
+        public void UpdateSurname(string surname)
+        {
+            Surname = surname;
+        }
+
+        /// <summary>
+        /// Updates Is Admin
+        /// </summary>
+        /// <param name="surname"></param>
+        public void UpdateAdminStatus(bool isAdmin)
+        {
+            IsAdmin = isAdmin;
+        }
+
+        /// <summary>
+        /// Checks can update the person forename
+        /// </summary>
+        /// <param name="forename"></param>
+        /// <returns>true or false</returns>
+        public bool CanUpdateForename(string forename)
+        {
+            return forename != Forename;
+        }
+
+        /// <summary>
+        /// Checks can update person surname
+        /// </summary>
+        /// <param name="requestSurname"></param>
+        /// <returns>true or false</returns>
+        public bool CanUpdateSurname(string surname)
+        {
+            return surname != Surname;
+        }
+
+        /// <summary>
+        /// Checks can update admin status
+        /// </summary>
+        /// <param name="isAdmin"></param>
+        /// <returns>true or false</returns>
+        public bool CanUpdateAdminStatus(bool isAdmin)
+        {
+            return isAdmin != IsAdmin;
+        }
     }
 }

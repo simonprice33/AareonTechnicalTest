@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AareonTechnicalTest.Application.Commands.Persons;
+using AareonTechnicalTest.Application.Commands.Persons.Add;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

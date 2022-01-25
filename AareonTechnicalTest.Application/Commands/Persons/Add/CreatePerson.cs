@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AareonTechnicalTest.Application.Entities;
 using MediatR;
 
-namespace AareonTechnicalTest.Application.Commands.Persons
+namespace AareonTechnicalTest.Application.Commands.Persons.Add
 {
     public class CreatePerson : IRequestHandler<CreatePersonRequest, CreatePersonResponse>
     {

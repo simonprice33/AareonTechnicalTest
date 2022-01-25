@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace AareonTechnicalTest.Application.Commands.Persons
+namespace AareonTechnicalTest.Application.Commands.Persons.Add
 {
     public class CreatePersonRequest : IRequest<CreatePersonResponse>
     {

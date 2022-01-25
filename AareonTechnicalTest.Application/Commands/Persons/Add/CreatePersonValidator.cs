@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace AareonTechnicalTest.Application.Commands.Persons
+namespace AareonTechnicalTest.Application.Commands.Persons.Add
 {
     public class CreatePersonValidator : AbstractValidator<CreatePersonRequest>
     {
