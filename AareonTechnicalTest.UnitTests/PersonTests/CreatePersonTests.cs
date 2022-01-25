@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AareonTechnicalTest.Application.Commands.Persons.Add;
-using AareonTechnicalTest.Application.Entities;
 using AareonTechnicalTest.Data.Data;
 using AareonTechnicalTest.DataHelpers;
 using FluentAssertions;

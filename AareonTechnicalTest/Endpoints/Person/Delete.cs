@@ -14,7 +14,9 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace AareonTechnicalTest.Endpoints.Person
 {
-    public class Delete : EndpointBaseAsync.WithRequest<DeletePersonRequest>.WithActionResult<Unit>
+    public class Delete : EndpointBaseAsync
+        .WithRequest<DeletePersonRequest>
+        .WithActionResult<Unit>
     {
         private readonly IMediator _mediator;
 
