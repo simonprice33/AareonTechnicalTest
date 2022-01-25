@@ -1,3 +1,11 @@
+using System;
+using System.Linq;
+using System.Text.Json.Serialization;
+using AareonTechnicalTest.Application.Config;
+using AareonTechnicalTest.Data;
+using AareonTechnicalTest.Data.Config;
+using AareonTechnicalTest.Data.Data;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,13 +28,36 @@ namespace AareonTechnicalTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers().AddFluentValidation(ConfigureFluentValidation).AddJsonOptions(options =>
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())); ;
+            services.AddInfrastructure();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddCqrsHandlers();
 
-            services.AddControllers();
             services.AddDbContext<ApplicationContext>(c => c.UseSqlite());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AareonTechnicalTest", Version = "v1" });
+                c.EnableAnnotations();
             });
+        }
+
+        private void ConfigureFluentValidation(FluentValidationMvcConfiguration config)
+        {
+            var assemblies = AppDomain.CurrentDomain
+                .GetAssemblies()
+                .Where(assembly =>
+                {
+                    var name = assembly.GetName();
+                    if (name.Name != null)
+                    {
+                        return name.Name.StartsWith("AareonTechnicalTest");
+                    }
+
+                    return false;
+                });
+
+            config.RegisterValidatorsFromAssemblies(assemblies);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
