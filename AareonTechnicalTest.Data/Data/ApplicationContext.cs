@@ -15,6 +15,9 @@ namespace AareonTechnicalTest.Data.Data
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
+            var envDir = Environment.CurrentDirectory;
+
+            DatabasePath = $"{envDir}{System.IO.Path.DirectorySeparatorChar}Ticketing.db";
         }
 
         public virtual DbSet<Person> Persons { get; set; }
@@ -23,8 +26,11 @@ namespace AareonTechnicalTest.Data.Data
 
         public Task<int> SaveChangesAsync() => base.SaveChangesAsync();
 
+        public string DatabasePath { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
+            options.UseSqlite($"Data Source={DatabasePath}");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
