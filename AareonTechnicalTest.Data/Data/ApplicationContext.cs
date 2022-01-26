@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -24,7 +25,18 @@ namespace AareonTechnicalTest.Data.Data
 
         public virtual DbSet<Ticket> Tickets { get; set; }
 
-        public Task<int> SaveChangesAsync() => base.SaveChangesAsync();
+        public Task<int> SaveChangesAsync()
+        {
+            var addedEntities = this.ChangeTracker
+                .Entries()
+                .Where(e => e.State == EntityState.Added)
+                .ToArray();
+            this.EnsureAutoHistory();
+            base.SaveChanges();
+
+            this.EnsureAddedHistory(addedEntities);
+            return base.SaveChangesAsync();
+        }
 
         public string DatabasePath { get; set; }
 
@@ -35,6 +47,8 @@ namespace AareonTechnicalTest.Data.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.EnableAutoHistory();
+
             PersonConfig.Configure(modelBuilder);
             TicketConfig.Configure(modelBuilder);
         }
