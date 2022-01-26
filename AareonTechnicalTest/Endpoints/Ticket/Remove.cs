@@ -31,7 +31,7 @@ namespace AareonTechnicalTest.Endpoints.Ticket
         /// <param name="request">The request object for Remove a ticket.</param>
         /// <param name="cancellationToken">An instance of <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        [HttpDelete(UrlConstants.TicketUrl + "/{Id}/remove")]
+        [HttpDelete(UrlConstants.TicketUrl + "/remove/{Id}/person/{PersonId}")]
         [SwaggerOperation(
             Summary = "Remove a Ticket",
             Description = "Remove a Ticket",
