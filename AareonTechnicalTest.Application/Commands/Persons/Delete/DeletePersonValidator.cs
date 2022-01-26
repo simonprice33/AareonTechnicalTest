@@ -28,6 +28,12 @@ namespace AareonTechnicalTest.Application.Commands.Persons.Delete
             if (person == null)
             {
                 customContext.AddFailure($"Invalid Record Id : {personId}");
+                return;
+            }
+
+            if (!person.IsAdmin)
+            {
+                customContext.AddFailure("This function can ony be completed by an Admin");
             }
         }
     }

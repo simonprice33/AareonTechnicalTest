@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AareonTechnicalTest.Application.Commands.Tickets.Update;
 using AareonTechnicalTest.Application.Queries;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 
 namespace AareonTechnicalTest.Application.Commands.Tickets.Delete
 {
@@ -25,11 +26,19 @@ namespace AareonTechnicalTest.Application.Commands.Tickets.Delete
 
         private void CheckRecordExists(int ticketId, ValidationContext<DeleteTicketRequest> customContext)
         {
-            var person = _databaseContext.Tickets.Find(ticketId);
+            var ticket = _databaseContext.Tickets
+                .Include(person => person.Person)
+                .FirstOrDefault(ticket => ticket.Id == ticketId);
 
-            if (person == null)
+            if (ticket == null)
             {
                 customContext.AddFailure($"Invalid Record Id : {ticketId}");
+                return;
+            }
+
+            if (!ticket.Person.IsAdmin)
+            {
+                customContext.AddFailure("This function can ony be completed by an Admin");
             }
         }
     }
