@@ -7,11 +7,8 @@ namespace AareonTechnicalTest.Application.Entities
     {
         public Ticket(string content, Person person)
         {
-            Content = !string.IsNullOrWhiteSpace(content)
-                ? content
-                : throw new ArgumentNullException(nameof(content));
-
-            Person = person ?? throw new ArgumentNullException(nameof(person));
+            Content = content;
+            Person = person;
             PersonId = Person.Id;
         }
 
@@ -39,5 +36,15 @@ namespace AareonTechnicalTest.Application.Entities
         /// Gets Person
         /// </summary>
         public Person Person { get; private set; }
+
+        public bool CanUpdateTicket(string content)
+        {
+            return content != Content;
+        }
+
+        public void UpdateContent(string content)
+        {
+            Content = content;
+        }
     }
 }

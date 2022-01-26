@@ -44,7 +44,9 @@ namespace AareonTechnicalTest.Endpoints.Person
         public override async Task<ActionResult<CreatePersonResponse>> HandleAsync(CreatePersonRequest request, CancellationToken cancellationToken = new CancellationToken())
         {
             var result = await _mediator.Send(request);
-            return Created(UrlConstants.PersonUrl + $"/{result.Id}", result.Id);
+            return result.Id > 0
+                ? Created(UrlConstants.PersonUrl + $"/{result.Id}", result.Id)
+                : BadRequest("Unable to add person. Please check your inputs and try again");
         }
     }
 }

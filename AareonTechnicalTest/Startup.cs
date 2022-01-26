@@ -5,6 +5,7 @@ using AareonTechnicalTest.Application.Config;
 using AareonTechnicalTest.Data;
 using AareonTechnicalTest.Data.Config;
 using AareonTechnicalTest.Data.Data;
+using AareonTechnicalTest.Interceptors;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +34,7 @@ namespace AareonTechnicalTest
             services.AddInfrastructure();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddCqrsHandlers();
-
+            services.AddTransient<IValidatorInterceptor, MergeModelFromRouteValidatorInterceptor>();
             services.AddDbContext<ApplicationContext>(c => c.UseSqlite());
             services.AddSwaggerGen(c =>
             {

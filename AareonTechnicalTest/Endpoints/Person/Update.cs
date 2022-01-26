@@ -16,7 +16,7 @@ namespace AareonTechnicalTest.Endpoints.Person
 {
     public class Update : EndpointBaseAsync
     .WithRequest<UpdatePersonRequest>
-        .WithActionResult<UpdatePersonResponse>
+        .WithActionResult<Unit>
     {
         private readonly IMediator _mediator;
 
@@ -38,10 +38,10 @@ namespace AareonTechnicalTest.Endpoints.Person
             OperationId = "Person.Update",
             Tags = new[] { "Person" })
         ]
-        [ProducesResponseType(typeof(UpdatePersonResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(Unit), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public override async Task<ActionResult<UpdatePersonResponse>> HandleAsync(UpdatePersonRequest request, CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<ActionResult<Unit>> HandleAsync([FromBody] UpdatePersonRequest request, CancellationToken cancellationToken = new CancellationToken())
         {
             var result = await _mediator.Send(request, cancellationToken);
             return NoContent();
