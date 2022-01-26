@@ -28,14 +28,34 @@ namespace AareonTechnicalTest.Application.Entities
         public string Content { get; private set; }
 
         /// <summary>
+        /// Gets Created Date
+        /// </summary>
+        public DateTime UpdatedDateTime { get; private set; }
+
+        /// <summary>
         /// Gets Person Id
         /// </summary>
         public int PersonId { get; private set; }
 
         /// <summary>
+        /// Gets Is Removed
+        /// </summary>
+        public bool IsRemoved { get; private set; }
+
+        /// <summary>
         /// Gets Person
         /// </summary>
         public Person Person { get; private set; }
+
+        public bool CanRemove()
+        {
+            return !IsRemoved;
+        }
+
+        public void Remove()
+        {
+            IsRemoved = true;
+        }
 
         public bool CanUpdateTicket(string content)
         {
@@ -45,6 +65,11 @@ namespace AareonTechnicalTest.Application.Entities
         public void UpdateContent(string content)
         {
             Content = content;
+        }
+
+        public void UpdatedBy(Person person)
+        {
+            PersonId = person.Id;
         }
     }
 }

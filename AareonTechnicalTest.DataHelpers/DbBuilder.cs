@@ -20,15 +20,6 @@ namespace AareonTechnicalTest.DataHelpers
         public DbBuilder(bool buildTestData)
         {
             DbContext = SqLiteContextOptionsBuilder.Create(Id);
-            if (buildTestData)
-            {
-                DbContext = CreateTestData();
-            }
-        }
-
-        private ApplicationContext CreateTestData()
-        {
-            throw new NotImplementedException();
         }
 
         public ApplicationContext DbContext { get; }

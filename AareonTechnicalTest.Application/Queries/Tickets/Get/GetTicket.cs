@@ -25,7 +25,8 @@ namespace AareonTechnicalTest.Application.Queries.Tickets.Get
         {
             var query = _databaseContext.Tickets
                 .Include(person => person.Person)
-                .Where(ticket => ticket.Id == request.Id);
+                .Where(ticket => ticket.Id == request.Id
+                && !ticket.IsRemoved);
 
             var mappedResult = await _mapper.ProjectTo<GetTicketResponse>(query).FirstOrDefaultAsync();
 

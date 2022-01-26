@@ -58,7 +58,7 @@ namespace AareonTechnicalTest.DataHelpers
             {
                 DataSource = dbBuilderId.ToString(),
                 Mode = SqliteOpenMode.Memory,
-                Cache = SqliteCacheMode.Shared
+                Cache = SqliteCacheMode.Private
             };
 
             var connection = new SqliteConnection(connectionString.ConnectionString);

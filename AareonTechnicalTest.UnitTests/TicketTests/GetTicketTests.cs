@@ -54,7 +54,7 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
             result.Should().BeOfType<GetTicketResponse>();
             result.Content.Should().Be("ticket content");
             result.Id.Should().Be(1);
-            result.CreatedBy.Should().Be("Simon Price");
+            result.LastUpdatedBy.Should().Be("Simon Price");
         }
 
         [Fact]
@@ -69,7 +69,7 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
             result.Should().BeOfType<GetTicketResponse>();
             result.Id.Should().Be(0);
             result.Content.Should().Be(null);
-            result.CreatedBy.Should().Be(null);
+            result.LastUpdatedBy.Should().Be(null);
         }
 
         private GetTicket CreateSut()
