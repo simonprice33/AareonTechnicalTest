@@ -10,6 +10,7 @@ namespace AareonTechnicalTest.Application.Entities
             Content = content;
             Person = person;
             PersonId = Person.Id;
+            UpdatedDateTime = DateTime.Now;
         }
 
         public Ticket()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,15 +8,20 @@ using AareonTechnicalTest.Application.Commands;
 using AareonTechnicalTest.Application.Config;
 using AareonTechnicalTest.Application.Entities;
 using AareonTechnicalTest.Application.Queries;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace AareonTechnicalTest.Data.Data
 {
     public class ApplicationContext : DbContext, IDbContext, IReadOnlyDbContext
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+        private readonly bool _configure;
+
+        public ApplicationContext(DbContextOptions<ApplicationContext> options, bool configure = true)
             : base(options)
         {
+            _configure = configure;
             var envDir = Environment.CurrentDirectory;
 
             DatabasePath = $"{envDir}{System.IO.Path.DirectorySeparatorChar}Ticketing.db";
@@ -42,7 +48,12 @@ namespace AareonTechnicalTest.Data.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlite($"Data Source={DatabasePath}");
+            //// This line conflicts with tests when uncommented, and needs to be uncommented for migrations.
+            ////if (System.Diagnostics.Debugger.IsAttached == false) System.Diagnostics.Debugger.Launch();
+            if (_configure)
+            {
+                options.UseSqlite($"Data Source={DatabasePath}");
+            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

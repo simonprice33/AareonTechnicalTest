@@ -30,11 +30,11 @@ namespace AareonTechnicalTest.DataHelpers
             PostCreateInternal(dbContext);
         }
 
-        public static ApplicationContext Create(Guid id)
+        public ApplicationContext Create()
         {
             var builder = new DbContextOptionsBuilder<ApplicationContext>();
-            BuildDbOptionsInternal(builder, id);
-            var dbContext = new ApplicationContext(builder.Options);
+            BuildDbOptionsInternal(builder, _dbBuilderId);
+            var dbContext = new ApplicationContext(builder.Options, false);
             PostCreateInternal(dbContext);
             return dbContext;
         }
@@ -42,11 +42,10 @@ namespace AareonTechnicalTest.DataHelpers
         private static void PostCreateInternal(ApplicationContext dbContext)
         {
             dbContext.Database.OpenConnection();
-
             dbContext.Database.EnsureCreated();
         }
 
-        private static void BuildDbOptionsInternal(DbContextOptionsBuilder builder, Guid dbBuilderId)
+        private void BuildDbOptionsInternal(DbContextOptionsBuilder builder, Guid dbBuilderId)
         {
             builder
                 .UseSqlite(CreateConnection(dbBuilderId));

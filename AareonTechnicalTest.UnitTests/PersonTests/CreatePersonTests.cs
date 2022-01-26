@@ -18,6 +18,7 @@ namespace AareonTechnicalTest.UnitTests.PersonTests
         public CreatePersonTests()
         {
             _databaseContext = new DbBuilder(false).Build();
+            _databaseContext.Database.EnsureDeleted();
             _sut = CreateSut();
         }
 

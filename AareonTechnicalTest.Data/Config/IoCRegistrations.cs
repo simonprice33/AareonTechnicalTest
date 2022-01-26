@@ -48,7 +48,7 @@ namespace AareonTechnicalTest.Data.Config
 
             options?.Invoke(builder);
 
-            return new ApplicationContext(builder.Options);
+            return new ApplicationContext(builder.Options, false);
         }
     }
 }

@@ -40,6 +40,7 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
             var request = new UpdateTicketRequest
             {
                 Id = 1,
+                PersonId = 1,
                 Content = "Updated Content"
             };
 

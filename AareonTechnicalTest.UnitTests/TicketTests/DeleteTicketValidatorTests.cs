@@ -37,7 +37,8 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
         {
             var request = new DeleteTicketRequest
             {
-                Id = 1
+                Id = 1,
+                PersonId = 1
             };
 
             var result = await _sut.TestValidateAsync(request);
