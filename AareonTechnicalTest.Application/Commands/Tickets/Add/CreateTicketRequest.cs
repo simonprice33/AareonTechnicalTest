@@ -7,11 +7,11 @@ namespace AareonTechnicalTest.Application.Commands.Tickets.Add
         /// <summary>
         /// Gets or Sets Content
         /// </summary>
-        public string Content { get; private set; }
+        public string Content { get; set; }
 
         /// <summary>
         /// Gets or Sets Person Id
         /// </summary>
-        public int PersonId { get; private set; }
+        public int PersonId { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace AareonTechnicalTest.Application.Queries.Tickets.Get
 
             var mappedResult = await _mapper.ProjectTo<GetTicketResponse>(query).FirstOrDefaultAsync();
 
-            return mappedResult;
+            return mappedResult ?? new GetTicketResponse();
         }
     }
 }

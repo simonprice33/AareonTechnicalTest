@@ -33,6 +33,7 @@ namespace AareonTechnicalTest.Application.Commands.Tickets.Add
 
             var ticket = new Ticket(request.Content, person);
             _databaseContext.Tickets.Add(ticket);
+            await _databaseContext.SaveChangesAsync();
             return new CreateTicketResponse
             {
                 Id = ticket.Id

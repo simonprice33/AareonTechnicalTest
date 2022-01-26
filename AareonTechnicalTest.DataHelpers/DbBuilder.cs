@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AareonTechnicalTest.Application.Commands.Tickets.Add;
 using AareonTechnicalTest.Application.Entities;
 using AareonTechnicalTest.Data.Data;
 using Microsoft.EntityFrameworkCore;
@@ -67,6 +68,13 @@ namespace AareonTechnicalTest.DataHelpers
         {
             person = new Person(forename, surname, true);
             DbContext.Persons.Add(person);
+            return this;
+        }
+
+        public DbBuilder AddTicket(string content, Person person, out Ticket ticket)
+        {
+            ticket = new Ticket(content, person);
+            DbContext.Tickets.Add(ticket);
             return this;
         }
     }

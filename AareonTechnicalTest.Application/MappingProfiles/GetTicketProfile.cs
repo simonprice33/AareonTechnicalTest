@@ -17,7 +17,7 @@ namespace AareonTechnicalTest.Application.MappingProfiles
             CreateMap<Ticket, GetTicketResponse>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content))
-                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => $"{src.Person.Forename} {src.Person.Surname}"));
+                .ForMember(dest => dest.CreatedBy, opt => opt.MapFrom(src => $"{src.Person.Forename ?? string.Empty} {src.Person.Surname ?? string.Empty}"));
         }
     }
 }

@@ -35,6 +35,8 @@ namespace AareonTechnicalTest.UnitTests.PersonTests
 
             var result = await _sut.Handle(request, CancellationToken.None).ConfigureAwait(false);
             result.Id.Should().Be(1);
+            var dbValue = _databaseContext.Persons.First();
+            dbValue.Id.Should().Be(1);
         }
 
         private CreatePerson CreateSut()

@@ -41,7 +41,7 @@ namespace AareonTechnicalTest.Endpoints.Person
         [ProducesResponseType(typeof(Unit), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public override async Task<ActionResult<Unit>> HandleAsync(UpdatePersonRequest request, CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<ActionResult<Unit>> HandleAsync([FromBody] UpdatePersonRequest request, CancellationToken cancellationToken = new CancellationToken())
         {
             var result = await _mediator.Send(request, cancellationToken);
             return NoContent();
