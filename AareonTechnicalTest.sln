@@ -5,11 +5,17 @@ VisualStudioVersion = 17.1.31903.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AareonTechnicalTest", "AareonTechnicalTest\AareonTechnicalTest.csproj", "{1FB831BF-946F-4526-AB25-E5CAFC6A8E4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AareonTechnicalTest.Application", "AareonTechnicalTest.Application\AareonTechnicalTest.Application.csproj", "{9C766791-FFD7-4B2C-8433-83E7091463DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AareonTechnicalTest.Application", "AareonTechnicalTest.Application\AareonTechnicalTest.Application.csproj", "{9C766791-FFD7-4B2C-8433-83E7091463DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AareonTechnicalTest.Data", "AareonTechnicalTest.Data\AareonTechnicalTest.Data.csproj", "{CBEC04D5-3976-45EC-B45A-6B0DADBB11FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AareonTechnicalTest.Data", "AareonTechnicalTest.Data\AareonTechnicalTest.Data.csproj", "{CBEC04D5-3976-45EC-B45A-6B0DADBB11FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AareonTechnicalTest.Shared", "AareonTechnicalTest.Shared\AareonTechnicalTest.Shared.csproj", "{601695C7-FAE2-439C-8ACD-0589FB09534F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AareonTechnicalTest.Shared", "AareonTechnicalTest.Shared\AareonTechnicalTest.Shared.csproj", "{601695C7-FAE2-439C-8ACD-0589FB09534F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8B80EA1D-44F7-46BF-A926-A2842B9FAD05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AareonTechnicalTest.UnitTests", "AareonTechnicalTest.UnitTests\AareonTechnicalTest.UnitTests.csproj", "{731A6CAF-0666-484A-B659-6D1DA7F91427}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AareonTechnicalTest.DataHelpers", "AareonTechnicalTest.DataHelpers\AareonTechnicalTest.DataHelpers.csproj", "{4DA8662C-FF08-4387-8302-1367DA012061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +39,21 @@ Global
 		{601695C7-FAE2-439C-8ACD-0589FB09534F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{601695C7-FAE2-439C-8ACD-0589FB09534F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{601695C7-FAE2-439C-8ACD-0589FB09534F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{731A6CAF-0666-484A-B659-6D1DA7F91427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{731A6CAF-0666-484A-B659-6D1DA7F91427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{731A6CAF-0666-484A-B659-6D1DA7F91427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{731A6CAF-0666-484A-B659-6D1DA7F91427}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DA8662C-FF08-4387-8302-1367DA012061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DA8662C-FF08-4387-8302-1367DA012061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DA8662C-FF08-4387-8302-1367DA012061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DA8662C-FF08-4387-8302-1367DA012061}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{731A6CAF-0666-484A-B659-6D1DA7F91427} = {8B80EA1D-44F7-46BF-A926-A2842B9FAD05}
+		{4DA8662C-FF08-4387-8302-1367DA012061} = {8B80EA1D-44F7-46BF-A926-A2842B9FAD05}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F8A0294-C99C-4FBE-BC69-E9393142C51C}
