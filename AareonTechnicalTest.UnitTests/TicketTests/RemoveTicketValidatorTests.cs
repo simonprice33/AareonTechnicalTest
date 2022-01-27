@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using AareonTechnicalTest.Application.Commands.Tickets.Delete;
+using AareonTechnicalTest.Application.Commands.Tickets.Remove;
 using AareonTechnicalTest.Application.Entities;
 using AareonTechnicalTest.Data.Data;
 using AareonTechnicalTest.DataHelpers;
@@ -14,18 +14,17 @@ using Xunit;
 
 namespace AareonTechnicalTest.UnitTests.TicketTests
 {
-    public class DeleteTicketValidatorTests
+    public class RemoveTicketValidatorTests
     {
         private ApplicationContext _databaseContext;
         private Person _person;
         private Ticket _ticket;
-        private readonly DeleteTicketValidator _sut;
+        private readonly RemoveTicketValidator _sut;
 
-        public DeleteTicketValidatorTests()
+        public RemoveTicketValidatorTests()
         {
             _databaseContext = new DbBuilder(false)
                 .AddPerson("Simon", "Price", true, out _person)
-                .AddPerson("Dave", "Price", false, out _person)
                 .InterimBuild()
                 .AddTicket("ticket content", _person, out _ticket)
                 .Build();
@@ -36,7 +35,7 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
         [Fact]
         public async Task Validate_ReturnsTrue()
         {
-            var request = new DeleteTicketRequest
+            var request = new RemoveTicketRequest
             {
                 Id = 1,
                 PersonId = 1
@@ -49,7 +48,7 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
         [Fact]
         public async Task Validate_InvalidId_ReturnsFalse()
         {
-            var request = new DeleteTicketRequest
+            var request = new RemoveTicketRequest
             {
                 Id = 0
             };
@@ -59,22 +58,9 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
         }
 
         [Fact]
-        public async Task Validate_RecordNotExist_ReturnsFalse()
-        {
-            var request = new DeleteTicketRequest
-            {
-                Id = 2
-            };
-
-            var result = await _sut.TestValidateAsync(request);
-            result.ShouldHaveValidationErrorFor(ticket => ticket.Id);
-            result.Errors.FirstOrDefault().ErrorMessage.Should().Be("Invalid Record Id : 2");
-        }
-
-        [Fact]
         public async Task Validate_PersonNotExists_ReturnsFalse()
         {
-            var request = new DeleteTicketRequest
+            var request = new RemoveTicketRequest
             {
                 Id = 1,
                 PersonId = 999
@@ -85,21 +71,21 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
         }
 
         [Fact]
-        public async Task Validate_PersonNotAdmin_ReturnsFalse()
+        public async Task Validate_RecordNotExist_ReturnsFalse()
         {
-            var request = new DeleteTicketRequest
+            var request = new RemoveTicketRequest
             {
-                Id = 1,
-                PersonId = 2
+                Id = 2
             };
 
             var result = await _sut.TestValidateAsync(request);
-            result.ShouldHaveValidationErrorFor(ticket => ticket.PersonId);
+            result.ShouldHaveValidationErrorFor(ticket => ticket.Id);
+            result.Errors.FirstOrDefault().ErrorMessage.Should().Be("Invalid Record Id : 2");
         }
 
-        private DeleteTicketValidator CreateSut()
+        private RemoveTicketValidator CreateSut()
         {
-            return new DeleteTicketValidator(_databaseContext);
+            return new RemoveTicketValidator(_databaseContext);
         }
     }
 }

@@ -53,7 +53,7 @@ namespace AareonTechnicalTest.DataHelpers
 
         public DbBuilder AddPerson(string forename, string surname, bool isAdmin, out Person person)
         {
-            person = new Person(forename, surname, true);
+            person = new Person(forename, surname, isAdmin);
             DbContext.Persons.Add(person);
             return this;
         }
