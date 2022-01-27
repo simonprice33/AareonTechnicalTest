@@ -22,10 +22,12 @@ namespace AareonTechnicalTest.Application.Commands.Tickets.Update
         public async Task<Unit> Handle(UpdateTicketRequest request, CancellationToken cancellationToken)
         {
             var ticket = await _databaseContext.Tickets.FirstOrDefaultAsync(ticket => ticket.Id == request.Id, cancellationToken).ConfigureAwait(false);
+            var person = await _databaseContext.Persons.FirstOrDefaultAsync(person => person.Id == request.PersonId, cancellationToken).ConfigureAwait(false);
 
             if (ticket.CanUpdateTicket(request.Content))
             {
                 ticket.UpdateContent(request.Content);
+                ticket.UpdatedBy(person);
             }
 
             await _databaseContext.SaveChangesAsync();

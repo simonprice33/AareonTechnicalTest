@@ -25,6 +25,7 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
         {
             _databaseContext = new DbBuilder(false)
                 .AddPerson("Simon", "Price", true, out _person)
+                .AddPerson("Dave", "Price", false, out _person)
                 .InterimBuild()
                 .AddTicket("ticket content", _person, out _ticket)
                 .Build();
@@ -37,7 +38,8 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
         {
             var request = new DeleteTicketRequest
             {
-                Id = 1
+                Id = 1,
+                PersonId = 1
             };
 
             var result = await _sut.TestValidateAsync(request);
@@ -67,6 +69,32 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
             var result = await _sut.TestValidateAsync(request);
             result.ShouldHaveValidationErrorFor(ticket => ticket.Id);
             result.Errors.FirstOrDefault().ErrorMessage.Should().Be("Invalid Record Id : 2");
+        }
+
+        [Fact]
+        public async Task Validate_PersonNotExists_ReturnsFalse()
+        {
+            var request = new DeleteTicketRequest
+            {
+                Id = 1,
+                PersonId = 999
+            };
+
+            var result = await _sut.TestValidateAsync(request);
+            result.ShouldHaveValidationErrorFor(ticket => ticket.PersonId);
+        }
+
+        [Fact]
+        public async Task Validate_PersonNotAdmin_ReturnsFalse()
+        {
+            var request = new DeleteTicketRequest
+            {
+                Id = 1,
+                PersonId = 2
+            };
+
+            var result = await _sut.TestValidateAsync(request);
+            result.ShouldHaveValidationErrorFor(ticket => ticket.PersonId);
         }
 
         private DeleteTicketValidator CreateSut()

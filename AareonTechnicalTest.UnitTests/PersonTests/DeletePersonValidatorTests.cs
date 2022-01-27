@@ -24,7 +24,9 @@ namespace AareonTechnicalTest.UnitTests.PersonTests
         public DeletePersonValidatorTests()
         {
             _databaseContext = new DbBuilder(false)
-                .AddPerson("Simon", "Price", true, out _person).Build();
+                .AddPerson("Simon", "Price", true, out _person)
+                .AddPerson("Dave", "Price", false, out _person)
+                .Build();
 
             _sut = CreateSut();
         }
@@ -46,12 +48,38 @@ namespace AareonTechnicalTest.UnitTests.PersonTests
         {
             var request = new DeletePersonRequest()
             {
-                Id = 2
+                Id = 3
             };
 
             var result = await _sut.TestValidateAsync(request);
             result.ShouldHaveValidationErrorFor(request => request.Id);
-            result.Errors.FirstOrDefault().ErrorMessage.Should().Be("Invalid Record Id : 2");
+            result.Errors.FirstOrDefault().ErrorMessage.Should().Be("Invalid Record Id : 3");
+        }
+
+        [Fact]
+        public async Task Validate_RequestIsValid_AdminNotExist_ReturnsFalse()
+        {
+            var request = new DeletePersonRequest()
+            {
+                Id = 1,
+                PersonId = 3
+            };
+
+            var result = await _sut.TestValidateAsync(request);
+            result.ShouldHaveValidationErrorFor(request => request.PersonId);
+        }
+
+        [Fact]
+        public async Task Validate_RequestIsValid_PerosnIdNotAdmin_ReturnsFalse()
+        {
+            var request = new DeletePersonRequest()
+            {
+                Id = 1,
+                PersonId = 2
+            };
+
+            var result = await _sut.TestValidateAsync(request);
+            result.ShouldHaveValidationErrorFor(request => request.PersonId);
         }
 
         [Fact]

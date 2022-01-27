@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using AareonTechnicalTest.Application.Commands.Tickets.Add;
 using AareonTechnicalTest.Application.Entities;
 using AareonTechnicalTest.Data.Data;
 using Microsoft.EntityFrameworkCore;
@@ -14,21 +10,12 @@ namespace AareonTechnicalTest.DataHelpers
     {
         public DbBuilder()
         {
-            DbContext = SqLiteContextOptionsBuilder.Create(Id);
+            DbContext = new SqLiteContextOptionsBuilder(Id).Create();
         }
 
-        public DbBuilder(bool buildTestData)
+        public DbBuilder(bool buildTestData = false)
         {
-            DbContext = SqLiteContextOptionsBuilder.Create(Id);
-            if (buildTestData)
-            {
-                DbContext = CreateTestData();
-            }
-        }
-
-        private ApplicationContext CreateTestData()
-        {
-            throw new NotImplementedException();
+            DbContext = new SqLiteContextOptionsBuilder(Id).Create();
         }
 
         public ApplicationContext DbContext { get; }
@@ -66,7 +53,7 @@ namespace AareonTechnicalTest.DataHelpers
 
         public DbBuilder AddPerson(string forename, string surname, bool isAdmin, out Person person)
         {
-            person = new Person(forename, surname, true);
+            person = new Person(forename, surname, isAdmin);
             DbContext.Persons.Add(person);
             return this;
         }

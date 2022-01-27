@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using AareonTechnicalTest.Application.Commands.Tickets.Delete;
-using AareonTechnicalTest.Application.Commands.Tickets.Update;
+using AareonTechnicalTest.Application.Commands.Tickets.Remove;
 using AareonTechnicalTest.Application.Entities;
 using AareonTechnicalTest.Data.Data;
 using AareonTechnicalTest.DataHelpers;
@@ -15,15 +13,15 @@ using Xunit;
 
 namespace AareonTechnicalTest.UnitTests.TicketTests
 {
-    public class UpdateTicketTests
+    public class RemoveTicketTests
     {
         private ApplicationContext _databaseContext;
         private readonly IMapper _mapper;
         private Person _person;
         private Ticket _ticket;
-        private readonly UpdateTicket _sut;
+        private readonly RemoveTicket _sut;
 
-        public UpdateTicketTests()
+        public RemoveTicketTests()
         {
             _databaseContext = new DbBuilder(false)
                 .AddPerson("Simon", "Price", true, out _person)
@@ -35,24 +33,21 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
         }
 
         [Fact]
-        public async Task UpdateTicket_ReturnsNoContent()
+        public async Task RemoveTicket_ReturnsUnit()
         {
-            var request = new UpdateTicketRequest
+            var request = new RemoveTicketRequest()
             {
-                Id = 1,
-                PersonId = 1,
-                Content = "Updated Content"
+                Id = 1
             };
 
-            var result = await _sut.Handle(request, CancellationToken.None).ConfigureAwait(false);
-
-            var dbValue = _databaseContext.Tickets.FirstOrDefault(ticket => ticket.Id == 1);
-            dbValue.Content.Should().Be("Updated Content");
+            _databaseContext.Tickets.ToList().Should().HaveCount(1);
+            _sut.Handle(request, CancellationToken.None).ConfigureAwait(false);
+            _databaseContext.Tickets.Where(x => !x.IsRemoved).ToList().Should().HaveCount(0);
         }
 
-        private UpdateTicket CreateSut()
+        private RemoveTicket CreateSut()
         {
-            return new UpdateTicket(_databaseContext);
+            return new RemoveTicket(_databaseContext);
         }
     }
 }
