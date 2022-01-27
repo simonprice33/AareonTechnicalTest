@@ -14,5 +14,10 @@ namespace AareonTechnicalTest.Application.Commands.Tickets.Update
         /// Gets or Sets Ticket Content
         /// </summary>
         public string Content { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Person Id Updating record
+        /// </summary>
+        public int PersonId { get; set; }
     }
 }

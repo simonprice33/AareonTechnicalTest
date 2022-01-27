@@ -61,12 +61,12 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
         {
             var request = new GetTicketRequest
             {
-                Id = 2
+                Id = 9999
             };
 
             var result = await _sut.TestValidateAsync(request);
             result.ShouldHaveValidationErrorFor(ticket => ticket.Id);
-            result.Errors.FirstOrDefault().ErrorMessage.Should().Be("Invalid Record Id : 2");
+            result.Errors.FirstOrDefault().ErrorMessage.Should().Be("Invalid Record Id : 9999");
         }
 
         private GetTicketValidator CreateSut()

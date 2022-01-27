@@ -8,10 +8,24 @@ namespace AareonTechnicalTest.Application.Queries.Tickets.Get
 {
     public class GetTicketResponse
     {
+        /// <summary>
+        /// Gets or Sets Id
+        /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// Gets or Sets Content
+        /// </summary>
         public string Content { get; set; }
 
-        public string CreatedBy { get; set; }
+        /// <summary>
+        /// Gets or Sets Updated By
+        /// </summary>
+        public string LastUpdatedBy { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Updated At
+        /// </summary>
+        public DateTime UpdatedAt { get; set; }
     }
 }

@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AareonTechnicalTest.Application.Commands.Tickets.Update;
+﻿using System.Linq;
 using AareonTechnicalTest.Application.Queries;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 
-namespace AareonTechnicalTest.Application.Commands.Tickets.Delete
+namespace AareonTechnicalTest.Application.Commands.Tickets.Remove
 {
-    public class DeleteTicketValidator : AbstractValidator<DeleteTicketRequest>
+    public class RemoveTicketValidator : AbstractValidator<RemoveTicketRequest>
     {
         private readonly IReadOnlyDbContext _databaseContext;
 
-        public DeleteTicketValidator(IReadOnlyDbContext databaseContext)
+        public RemoveTicketValidator(IReadOnlyDbContext databaseContext)
         {
             _databaseContext = databaseContext;
             RuleFor(request => request.Id).GreaterThan(0)
@@ -30,7 +25,7 @@ namespace AareonTechnicalTest.Application.Commands.Tickets.Delete
                 });
         }
 
-        private void CheckPersonExists(int personId, ValidationContext<DeleteTicketRequest> customContext)
+        private void CheckPersonExists(int personId, ValidationContext<RemoveTicketRequest> customContext)
         {
             var person = _databaseContext.Persons.FirstOrDefault(person => person.Id == personId);
             if (person == null)
@@ -38,18 +33,15 @@ namespace AareonTechnicalTest.Application.Commands.Tickets.Delete
                 customContext.AddFailure($"Invalid Id : {personId}");
                 return;
             }
-
-            if (!person.IsAdmin)
-            {
-                customContext.AddFailure("This function can ony be completed by an Admin");
-            }
         }
 
-        private void CheckRecordExists(int ticketId, ValidationContext<DeleteTicketRequest> customContext)
+        private void CheckRecordExists(int ticketId, ValidationContext<RemoveTicketRequest> customContext)
         {
-            var ticket = _databaseContext.Tickets.FirstOrDefault(ticket => ticket.Id == ticketId);
+            var ticket = _databaseContext.Tickets
+                .Include(person => person.Person)
+                .FirstOrDefault(ticket => ticket.Id == ticketId);
 
-            if (ticket == null)
+            if (ticket == null || ticket.IsRemoved)
             {
                 customContext.AddFailure($"Invalid Record Id : {ticketId}");
                 return;

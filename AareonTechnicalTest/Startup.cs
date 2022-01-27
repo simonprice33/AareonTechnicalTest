@@ -29,13 +29,13 @@ namespace AareonTechnicalTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationContext>(c => c.UseSqlite());
             services.AddControllers().AddFluentValidation(ConfigureFluentValidation).AddJsonOptions(options =>
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())); ;
             services.AddInfrastructure();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddCqrsHandlers();
             services.AddTransient<IValidatorInterceptor, MergeModelFromRouteValidatorInterceptor>();
-            services.AddDbContext<ApplicationContext>(c => c.UseSqlite());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AareonTechnicalTest", Version = "v1" });

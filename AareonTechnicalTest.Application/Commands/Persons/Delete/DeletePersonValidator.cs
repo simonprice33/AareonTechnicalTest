@@ -19,6 +19,26 @@ namespace AareonTechnicalTest.Application.Commands.Persons.Delete
             {
                 RuleFor(request => request.Id).Custom(CheckRecordExists);
             });
+            RuleFor(request => request.PersonId).GreaterThan(0)
+                .DependentRules(() =>
+                {
+                    RuleFor(request => request.PersonId).Custom(CheckPersonExists);
+                });
+        }
+
+        private void CheckPersonExists(int personId, ValidationContext<DeletePersonRequest> customContext)
+        {
+            var person = _databaseContext.Persons.FirstOrDefault(person => person.Id == personId);
+            if (person == null)
+            {
+                customContext.AddFailure($"Invalid Id : {personId}");
+                return;
+            }
+
+            if (!person.IsAdmin)
+            {
+                customContext.AddFailure("This function can ony be completed by an Admin");
+            }
         }
 
         private void CheckRecordExists(int personId, ValidationContext<DeletePersonRequest> customContext)
@@ -28,6 +48,7 @@ namespace AareonTechnicalTest.Application.Commands.Persons.Delete
             if (person == null)
             {
                 customContext.AddFailure($"Invalid Record Id : {personId}");
+                return;
             }
         }
     }

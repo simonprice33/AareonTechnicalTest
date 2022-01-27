@@ -31,7 +31,7 @@ namespace AareonTechnicalTest.Endpoints.Person
         /// <param name="id">The request object for delete a person.</param>
         /// <param name="cancellationToken">An instance of <see cref="CancellationToken"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        [HttpDelete(UrlConstants.PersonUrl + "/{Id}")]
+        [HttpDelete(UrlConstants.PersonUrl + "/{Id}/admin/{PersonId}")]
         [SwaggerOperation(
             Summary = "Delete a Person",
             Description = "Delete a Person",
@@ -41,7 +41,7 @@ namespace AareonTechnicalTest.Endpoints.Person
         [ProducesResponseType(typeof(Unit), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public override async Task<ActionResult<Unit>> HandleAsync([FromBody] DeletePersonRequest request, CancellationToken cancellationToken = new CancellationToken())
+        public override async Task<ActionResult<Unit>> HandleAsync([FromRoute] DeletePersonRequest request, CancellationToken cancellationToken = new CancellationToken())
         {
             var result = await _mediator.Send(request, cancellationToken).ConfigureAwait(false);
             return NoContent();

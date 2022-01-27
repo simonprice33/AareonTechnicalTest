@@ -9,7 +9,7 @@ namespace AareonTechnicalTest.Endpoints
     public class UrlConstants
     {
         public const string BaseUrl = "api/v1";
-        public const string PersonUrl = BaseUrl + "/Person";
-        public const string TicketUrl = BaseUrl + "/Ticket";
+        public const string PersonUrl = BaseUrl + "/person";
+        public const string TicketUrl = BaseUrl + "/ticket";
     }
 }
