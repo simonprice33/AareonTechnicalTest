@@ -42,7 +42,7 @@ namespace AareonTechnicalTest.UnitTests.TicketTests
 
             _databaseContext.Tickets.ToList().Should().HaveCount(1);
             _sut.Handle(request, CancellationToken.None).ConfigureAwait(false);
-            _databaseContext.Tickets.ToList().Should().HaveCount(0);
+            _databaseContext.Tickets.Where(x => !x.IsRemoved).ToList().Should().HaveCount(0);
         }
 
         private RemoveTicket CreateSut()
